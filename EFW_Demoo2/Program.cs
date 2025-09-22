@@ -1,6 +1,7 @@
 ﻿using EFW_Demoo2.Contexts;
 using EFW_Demoo2.Contexts.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace EFW_Demoo2
 {
@@ -114,25 +115,95 @@ namespace EFW_Demoo2
                 //var department = context.Departments.FirstOrDefault(x => x.DeptId == employee.DepartmentId);
                 //context.Entry(department).Collection(x => x.Employees).Load();
 
-                Console.WriteLine($"Id=> {employee.Id}, Name => {employee.Name}, DeptName => {employee.Department.Name}");
+               // Console.WriteLine($"Id=> {employee.Id}, Name => {employee.Name}, DeptName => {employee.Department.Name}");
 
             }
 
-            var query = (from emp in context.Employees.AsNoTracking()
-                        join dept in context.Departments.AsNoTracking()
-                        on emp.DepartmentId equals dept.DeptId
-                        where dept.Name == "HR"
-                        select new 
-                        {
-                           EmployeeName = emp.Name,
-                           DepartmentName= dept.Name
-                            
-                        }).ToList();
+            //var query = (from emp in context.Employees.AsNoTracking()
+            //            join dept in context.Departments.AsNoTracking()
+            //            on emp.DepartmentId equals dept.DeptId
+            //            where dept.Name == "HR"
+            //            select new 
+            //            {
+            //               EmployeeName = emp.Name,
+            //               DepartmentName= dept.Name
 
-            foreach (var item in query)
-            {
-                Console.WriteLine($"{item.EmployeeName} => {item.DepartmentName}");
-            }
+            //            }).ToList();
+
+            //foreach (var item in query)
+            //{
+            //    Console.WriteLine($"{item.EmployeeName} => {item.DepartmentName}");
+            //}
+
+            #region Group Join
+
+            //var query = context.Departments.GroupJoin(context.Employees,
+            //                                           department => department.DeptId,
+            //                                           employee => employee.DepartmentId,
+            //                                           (department, employees) => new
+            //                                           {
+            //                                               EmployeeName = employees,
+            //                                               DepartmentName = department.Name
+
+            //                                           }).ToList();
+
+            //query = (from department in context.Departments
+            //         join employees in context.Employees
+            //         on department.DeptId equals employee.DepartmentId into emps
+            //         select new
+            //         {
+            //             Employees = emps,
+            //             Department = department
+
+            //         }).ToList();
+
+            //foreach (var item in query)
+            //{
+            //    Console.WriteLine($"{item.Department.DeptId} - {item.Department.Name}");
+
+            //}
+            #endregion
+
+            #region Left Join
+            //var query = context.Departments.LeftJoin(context.Employees,
+            //                                          department => department.DeptId,
+            //                                          employee => employee.DepartmentId,
+            //                                          (department, employees) => new
+            //                                          {
+            //                                              EmployeeName = employees,
+            //                                           DepartmentName = department.Name
+
+            //                                          }).ToList();
+            //foreach (var item in query)
+            //{
+            //    Console.WriteLine($"{item.Department.DeptId} - {item.Department.Name}");
+
+            //}
+
+            #endregion
+
+            #region Cross Join
+            //var query = from employees in context.Employees
+            //            from department in context.Departments
+            //            select new
+            //            {
+            //                EmployeeName = employee.Name,
+            //                DepartmentName = department.Name
+            //            };
+
+            //foreach (var item in query)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
+
+            #region
+
+
+
+            #endregion
+
+
         }
     }
 }
