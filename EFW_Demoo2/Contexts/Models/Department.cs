@@ -12,6 +12,7 @@ namespace EFW_Demoo2.Contexts.Models
         public string Name { get; set; }
         public DateTime DateofCreation { get; set; }
         public int serial { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
 
 
     }

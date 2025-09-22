@@ -18,7 +18,8 @@ namespace EFW_Demoo2.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=.; database=CompanyDbG011; trusted_connection=true; TrustServerCertificate=true;");
+            optionsBuilder.UseSqlServer("server=.; database=CompanyDbG011; trusted_connection=true; TrustServerCertificate=true;")
+            .UseLazyLoadingProxies();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,6 +39,8 @@ namespace EFW_Demoo2.Contexts
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Course> Courses { get; set; }
 
     }
 

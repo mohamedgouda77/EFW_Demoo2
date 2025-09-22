@@ -8,8 +8,8 @@ namespace EFW_Demoo2
     {
         static void Main(string[] args)
         {
-            
-           using CompanyDbContext context = new CompanyDbContext();
+
+            using CompanyDbContext context = new CompanyDbContext();
 
             #region Add
             //Employee employee = new Employee
@@ -94,12 +94,45 @@ namespace EFW_Demoo2
             //}
             #endregion
 
-            
+            //var employee = context.Employees.FirstOrDefault(x => x.Id == 3);
 
+            //if (employee is not null)
+            //{
 
+            //    Console.WriteLine($"Id=> {employee.Id}, Name => {employee.Name}, DeptName => {employee.Department.Name}");
 
+            //}
 
+            //var department = context.Departments.FirstOrDefault(x => x.DeptId == employee.DepartmentId);
+            //Console.WriteLine($"DeptName => {department?.Name}");
 
+            var employee = context.Employees.FirstOrDefault(x => x.Id == 3);
+
+            if (employee is not null)
+            {
+                //context.Entry(employee).Reference(x => x.Department).Load();
+                //var department = context.Departments.FirstOrDefault(x => x.DeptId == employee.DepartmentId);
+                //context.Entry(department).Collection(x => x.Employees).Load();
+
+                Console.WriteLine($"Id=> {employee.Id}, Name => {employee.Name}, DeptName => {employee.Department.Name}");
+
+            }
+
+            var query = (from emp in context.Employees.AsNoTracking()
+                        join dept in context.Departments.AsNoTracking()
+                        on emp.DepartmentId equals dept.DeptId
+                        where dept.Name == "HR"
+                        select new 
+                        {
+                           EmployeeName = emp.Name,
+                           DepartmentName= dept.Name
+                            
+                        }).ToList();
+
+            foreach (var item in query)
+            {
+                Console.WriteLine($"{item.EmployeeName} => {item.DepartmentName}");
+            }
         }
     }
 }

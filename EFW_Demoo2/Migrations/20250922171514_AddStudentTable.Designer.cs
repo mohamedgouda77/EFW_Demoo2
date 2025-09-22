@@ -4,6 +4,7 @@ using EFW_Demoo2.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFW_Demoo2.Migrations
 {
     [DbContext(typeof(CompanyDbContext))]
-    partial class CompanyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250922171514_AddStudentTable")]
+    partial class AddStudentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,50 +91,6 @@ namespace EFW_Demoo2.Migrations
                     b.HasKey("DeptId");
 
                     b.ToTable("Departments");
-
-                    b.HasData(
-                        new
-                        {
-                            DeptId = 10,
-                            DateofCreation = new DateTime(2025, 9, 22, 20, 32, 25, 98, DateTimeKind.Local).AddTicks(2339),
-                            Name = "IT"
-                        },
-                        new
-                        {
-                            DeptId = 20,
-                            DateofCreation = new DateTime(2025, 9, 22, 20, 32, 25, 98, DateTimeKind.Local).AddTicks(2386),
-                            Name = "HR"
-                        },
-                        new
-                        {
-                            DeptId = 30,
-                            DateofCreation = new DateTime(2025, 9, 22, 20, 32, 25, 98, DateTimeKind.Local).AddTicks(2389),
-                            Name = "Payroll"
-                        },
-                        new
-                        {
-                            DeptId = 40,
-                            DateofCreation = new DateTime(2025, 9, 22, 20, 32, 25, 98, DateTimeKind.Local).AddTicks(2392),
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            DeptId = 50,
-                            DateofCreation = new DateTime(2025, 9, 22, 20, 32, 25, 98, DateTimeKind.Local).AddTicks(2394),
-                            Name = "Support"
-                        },
-                        new
-                        {
-                            DeptId = 60,
-                            DateofCreation = new DateTime(2025, 9, 22, 20, 32, 25, 98, DateTimeKind.Local).AddTicks(2396),
-                            Name = "Sales"
-                        },
-                        new
-                        {
-                            DeptId = 70,
-                            DateofCreation = new DateTime(2025, 9, 22, 20, 32, 25, 98, DateTimeKind.Local).AddTicks(2399),
-                            Name = "Marketing"
-                        });
                 });
 
             modelBuilder.Entity("EFW_Demoo2.Contexts.Models.Employee", b =>
@@ -149,9 +108,6 @@ namespace EFW_Demoo2.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DepartmentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasMaxLength(10)
                         .HasColumnType("varchar");
@@ -164,8 +120,6 @@ namespace EFW_Demoo2.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Employees");
                 });
@@ -260,15 +214,6 @@ namespace EFW_Demoo2.Migrations
                         .HasForeignKey("StudentId");
                 });
 
-            modelBuilder.Entity("EFW_Demoo2.Contexts.Models.Employee", b =>
-                {
-                    b.HasOne("EFW_Demoo2.Contexts.Models.Department", "Department")
-                        .WithMany("Employees")
-                        .HasForeignKey("DepartmentId");
-
-                    b.Navigation("Department");
-                });
-
             modelBuilder.Entity("EFW_Demoo2.Contexts.Models.Product", b =>
                 {
                     b.HasOne("EFW_Demoo2.Contexts.Models.Category", null)
@@ -295,11 +240,6 @@ namespace EFW_Demoo2.Migrations
             modelBuilder.Entity("EFW_Demoo2.Contexts.Models.Course", b =>
                 {
                     b.Navigation("Courses");
-                });
-
-            modelBuilder.Entity("EFW_Demoo2.Contexts.Models.Department", b =>
-                {
-                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("EFW_Demoo2.Contexts.Models.Student", b =>

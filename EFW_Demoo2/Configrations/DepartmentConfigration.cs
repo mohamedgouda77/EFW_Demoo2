@@ -42,6 +42,18 @@ namespace EFW_Demoo2.Configrations
             
                         builder.Ignore(x => x.serial); // Not mapped to any column in the table
 
+            builder.HasData
+                (
+
+                 new Department { DeptId = 10, Name = "IT", DateofCreation = DateTime.Now },
+                 new Department { DeptId = 20, Name = "HR", DateofCreation = DateTime.Now },
+                 new Department { DeptId = 30, Name = "Payroll", DateofCreation = DateTime.Now },
+                 new Department { DeptId = 40, Name = "Admin", DateofCreation = DateTime.Now },
+                 new Department { DeptId = 50, Name = "Support", DateofCreation = DateTime.Now },
+                 new Department { DeptId = 60, Name = "Sales", DateofCreation = DateTime.Now },
+                 new Department { DeptId = 70, Name = "Marketing", DateofCreation = DateTime.Now }
+
+                );
         }
     }
 }

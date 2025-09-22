@@ -36,5 +36,8 @@ namespace EFW_Demoo2.Contexts.Models
 
         public string Address { get; set; } // nvarchar(max)
 
+        public int? DepartmentId { get; set; } 
+        public virtual Department Department { get; set; } 
+
     }
 }
